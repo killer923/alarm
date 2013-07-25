@@ -1,5 +1,7 @@
 import os
 import time
+from Tkinter import Tk
+from tkFileDialog import askopenfilename
 
 def change_settings(first_time):
 	if first_time==0:
@@ -11,18 +13,25 @@ def change_settings(first_time):
 	settings.write("If you make a mistake simply delete this file.\n")
 	#set alarm tone
 	if first_time:
-		print "Enter path to new alarm tone: ",
-		new_tone=raw_input()
+		print "Select the alarm tone alarm tone: "
+		try:
+			Tk().withdraw()
+		except Exception as e:
+			print e
+		new_tone= askopenfilename()
+		print new_tone
 		settings.write("Alarm tone : "+new_tone+"\n")
 	else:
 		print "Current alarm tone: "+tone
 		print "Do you want to change the alarm tone:(Y|N) ",
 		response=raw_input()
 		if response=="y" or response=="Y":
-			print "Enter path to new alarm tone or '0' to keep the same tone ",
-			new_tone=raw_input()
-			if new_tone=="0":
-				new_tone=tone
+			try:
+				Tk().withdraw()
+			except Exception as e:
+				print e
+			new_tone=askopenfilename()
+			print new_tone
 			settings.write("Alarm tone : "+new_tone+"\n")
 		else:
 			settings.write("Alarm tone : "+tone+"\n")
@@ -76,16 +85,19 @@ def read_settings():
 			elif count==2:
 				tone=line
 				tone=tone.split(":")
-				#print tone
+				#print "1==",tone
 				tone[1]=tone[1].split()[0]
-				tone1=tone[-1].split("\\")
-				#print tone1
+				tone1=tone[-1].split("/")
+				#print "2==",tone1
 				tone=tone[1]+":"
-				#print tone
+				#print "3==",tone
 				tone1[-1]=tone1[-1].split("\\")[0]
-				for i in range(1,(len(tone1))):
-					tone=tone+"\\"+str(tone1[i])
-					#print tone
+				if len(tone1)==1:
+					tone=tone+"\\"+str(tone1[0])
+				else:
+					for i in range(1,(len(tone1))):
+						tone=tone+"\\"+str(tone1[i])
+						#print "i=",i,"  ",tone
 				#tone=tone1.split()
 				#print tone
 				#tone=tone[0]
@@ -100,8 +112,8 @@ def read_settings():
 				snooze=int(snooze[0])
 				#print count,snooze
 		return [tone,snooze]
-	except:
-		print count
+	except Exception as x:
+		print count,x
 		print "There seems to be a problem with your settings file."
 		print "We will need to recreate it."
 		create_settings()
@@ -112,7 +124,11 @@ def ring(tone,snooze):
 	while 1:
 		os.startfile(tone)
 		time.sleep(snooze*60)
+		#ring(tone,snooze)
 		print "Come on Wake up... You are Getting Late ...."
+
+
+#Tk().withdraw()
 print "Welcome"
 print "Do you want to change settings? (Y|N) ",
 response=raw_input()
@@ -178,4 +194,5 @@ seconds=(hours*3600)+(minutes*60)
 #print "Alarm will ring after "+str(seconds)+" seconds."
 time.sleep(seconds)
 print "The program woke up :) \n Time for you to wake up too."
+#print customizations
 ring(customizations[0],customizations[1])
