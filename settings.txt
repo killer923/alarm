@@ -1,0 +1,4 @@
+Please change only if you know what you are doing.
+If you make a mistake simply delete this file.
+Alarm tone : E:/timepass/py/programs/py2exe Tutorial (Low).flv
+Snooze time: 5
