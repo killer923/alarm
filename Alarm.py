@@ -128,71 +128,75 @@ def ring(tone,snooze):
 		print "Come on Wake up... You are Getting Late ...."
 
 
-#Tk().withdraw()
-print "Welcome"
-print "Do you want to change settings? (Y|N) ",
-response=raw_input()
-if response=="y" or response=="Y":
-	change_settings(0)
-customizations=read_settings()
-#Get time to ring
-print "Set time for alarm: "
-#get hours
-print " HH : ",
-hh=int(raw_input())
-check = 0
-if hh<0 or hh>23:
-	check = -1
-while check<0:
-	print " Hours does not exist, please enter again: ",
+def main():
+	print "Welcome"
+	print "Do you want to change settings? (Y|N) ",
+	response=raw_input()
+	if response=="y" or response=="Y":
+		change_settings(0)
+	customizations=read_settings()
+	#Get time to ring
+	print "Set time for alarm: "
+	#get hours
+	print " HH : ",
 	hh=int(raw_input())
-	if hh<0 or hh>24:
+	check = 0
+	if hh<0 or hh>23:
 		check = -1
-	else:
-		check = 0
-	#get time
-print " MM : ",
-mm=int(raw_input())
-check = 0
-if mm<0 or mm>59:
-	check = -1
-while check<0:
-	print " Minutes does not exist, please enter again: ",
+	while check<0:
+		print " Hours does not exist, please enter again: ",
+		hh=int(raw_input())
+		if hh<0 or hh>24:
+			check = -1
+		else:
+			check = 0
+		#get time
+	print " MM : ",
 	mm=int(raw_input())
-	if mm<0 or mm>24:
+	check = 0
+	if mm<0 or mm>59:
 		check = -1
-	else:
-		check = 0
-#Get current time
-sys_time=time.ctime()
-sys_time=sys_time.split()
-sys_time=sys_time[3].split(":")
-sys_hh=int(sys_time[0])
-sys_mm=int(sys_time[1])
-#calculate sleeping time
-if hh<sys_hh:
-	minutes=(60-sys_mm)+mm
-	hours=(23-sys_hh)+hh
-elif hh==sys_hh:
-	if mm<sys_mm:
-		hours=23
+	while check<0:
+		print " Minutes does not exist, please enter again: ",
+		mm=int(raw_input())
+		if mm<0 or mm>24:
+			check = -1
+		else:
+			check = 0
+	#Get current time
+	sys_time=time.ctime()
+	sys_time=sys_time.split()
+	sys_time=sys_time[3].split(":")
+	sys_hh=int(sys_time[0])
+	sys_mm=int(sys_time[1])
+	#calculate sleeping time
+	if hh<sys_hh:
 		minutes=(60-sys_mm)+mm
+		hours=(23-sys_hh)+hh
+	elif hh==sys_hh:
+		if mm<sys_mm:
+			hours=23
+			minutes=(60-sys_mm)+mm
+		else:
+			hours=0
+			minutes=mm-sys_mm
 	else:
-		hours=0
-		minutes=mm-sys_mm
-else:
-	hours=hh-sys_hh-1
-	minutes=(60-sys_mm)+mm
-if minutes >60:
-	hours=hours+1
-	minutes=minutes-60
-elif minutes<0:
-	hours=hours-1
-	minutes=minutes+60
-print "Alarm will ring after "+str(hours)+" hours and "+str(minutes)+" minutes."
-seconds=(hours*3600)+(minutes*60)
-#print "Alarm will ring after "+str(seconds)+" seconds."
-time.sleep(seconds)
-print "The program woke up :) \n Time for you to wake up too."
-#print customizations
-ring(customizations[0],customizations[1])
+		hours=hh-sys_hh-1
+		minutes=(60-sys_mm)+mm
+	if minutes >60:
+		hours=hours+1
+		minutes=minutes-60
+	elif minutes<0:
+		hours=hours-1
+		minutes=minutes+60
+	print "Alarm will ring after "+str(hours)+" hours and "+str(minutes)+" minutes."
+	seconds=(hours*3600)+(minutes*60)
+	#print "Alarm will ring after "+str(seconds)+" seconds."
+	time.sleep(seconds)
+	print "The program woke up :) \n Time for you to wake up too."
+	#print customizations
+	ring(customizations[0],customizations[1])
+
+
+if __name__=='__main__':
+	main()
