@@ -18,7 +18,7 @@ Simply download the zip file and extract it using a any .zip extractor to a suit
 
 Usage
 
-Simply run the alarm.exe file present in the zip file. If you are running the program the first time you will need to enter settings, the alarm tone and the snooze time (in minutes), as and when asked by the program. Now set the time for the alarm in 24-hour format and keep the program open until you want to close the alarm.Please note that the alarm tone will be run as if the file is double cilcked, so ensure before hand that the alarm tone rings when the file is double clicked. Also note that you need to enter the full path(eg. E:\songs\alarmtone.mp3) to the alarm tone.
+Simply run the alarm.exe file present in the zip file. If you are running the program the first time you will need to enter settings, the alarm tone and the snooze time (in minutes), as and when asked by the program. Now set the time for the alarm in 24-hour format and keep the program open until you want to close the alarm.Please note that the alarm tone will be run as if the file is double cilcked, so ensure before hand that the alarm tone rings when the file is double clicked.
 
 Disclaimer
 
